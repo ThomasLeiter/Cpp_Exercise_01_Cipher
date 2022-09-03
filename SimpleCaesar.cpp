@@ -1,5 +1,14 @@
 #include "Cipher.hpp"
 
+bool is_upper_case(const char&);
+bool is_lower_case(const char&);
+char encode_char(const char&, unsigned long);
+char decode_char(const char&, unsigned long);
+char mod (const char& a, const char& b){
+    return (b + a%b) %b;
+}
+
+
 std::string SimpleCaesar::encode(const std::string & message){
     std::string enc_msg;
     for (const char& c : message){
@@ -17,33 +26,35 @@ std::string SimpleCaesar::decode(const std::string & message){
 }
 
 char encode_char(const char& c, unsigned long shift){
-    char pos = shift % 256;
+    char pos = mod(shift, 52);
     if (is_lower_case(c)){
-        pos = ('a' - c + shift) % 52;
+        pos = (c - 'a' + pos);
     } else if (is_upper_case(c)){
-        pos = ('A' - c + shift) % 52;
+        pos = (c - 'A' + pos + 26);
     } else {
-        throw CipherError;
+        std::cerr << "Something went wrong.\n";
     }
+    pos = mod(pos, 52);
     return (pos < 26) ? 'a' + pos : 'A' + pos - 26;
 }
 
 char decode_char(const char& c, unsigned long shift){
-    char pos = shift % 256;
+    char pos = mod(shift, 52);
     if (is_lower_case(c)){
-        pos = ('a' - c - shift) % 52;
+        pos = (c - 'a' - pos);
     } else if (is_upper_case(c)){
-        pos = ('A' - c - shift) % 52;
+        pos = (c - 'A' - pos + 26);
     } else {
-        throw CipherError;
+        std::cerr << "Something went wrong.\n";
     }
+    pos = mod(pos, 52);
     return (pos < 26) ? 'a' + pos : 'A' + pos - 26;
 }
 
-boolean is_lower_case(const char& c){
+bool is_lower_case(const char& c){
     return 'a' <= c && 'z' >= c;
 }
 
-boolean is_upper_case(const char& c){
+bool is_upper_case(const char& c){
     return 'A' <= c && 'Z' >= c;
 }
