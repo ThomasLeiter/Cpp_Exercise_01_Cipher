@@ -2,12 +2,16 @@ LINKER = g++
 
 COMPILER = g++ -c
 
-OBJ = main.o SimpleCaesar.o ExtendedCaesar.o 
+OBJ = main.o SimpleCaesar.o ExtendedCaesar.o Cipher.o
 
 EXE = app.exe
 
-test: $(EXE)
+CLEAN = del $(EXE) $(OBJ)
+
+test: $(OBJ)
+	$(LINKER) $(OBJ) -o $(EXE)
 	./$(EXE)
+	$(CLEAN)
 
 app: $(OBJ)
 	$(LINKER) $(OBJ) -o $(EXE)
@@ -16,5 +20,4 @@ $(OBJ): %.o : %.cpp
 	$(COMPILER) -o $@ $<
 
 clean:
-	del $(EXE)
-	del $(OBJ)
+	$(CLEAN)

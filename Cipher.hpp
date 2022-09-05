@@ -1,31 +1,52 @@
-#ifndef CIPHER
-#define CIPHER
+#ifndef CIPHER_HPP
+#define CIPHER_HPP
 
 #include <string>
-#include <iostream>
 
-class SubstitutionCipher
+namespace Cipher
 {
-public:
-    SubstitutionCipher(const unsigned long &_key) : key(_key) {}
-    virtual std::string encode(const std::string &) = 0;
-    virtual std::string decode(const std::string &) = 0;
-protected:
-    const unsigned long key;
-};
 
-class SimpleCaesar : public SubstitutionCipher
-{
-public:
-    std::string encode(const std::string &) override;
-    std::string decode(const std::string &) override;
-    using SubstitutionCipher::SubstitutionCipher;
-};
+    /*
+     * Holds constants for useful basic alphabets.
+     *
+     * LOWER_CASE
+     * UPPER_CASE
+     * LOWER_UPPER
+     */
+    class Alphabet {
+    public:
+        static const std::string LOWER_CASE; // Lower case chars "abcdefghijklmnopqrstuvwxyz"
+        static const std::string UPPER_CASE; // Upper case chars "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        static const std::string LOWER_UPPER; // Lower and upper case chars "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    };
 
-class ExtendedCaesar : public SubstitutionCipher
-{
-public:
-    using SubstitutionCipher::SubstitutionCipher;
-};
+    /*
+     * A simple substitution cipher.
+     * 
+     * Messages will be encrypted and decoded
+     * by substituting all chars in a given
+     * alphabet A by chars from a (possibly different)
+     * alphabet B.
+     */
+    class SubstitutionCipher
+    {
+    public:
+        SubstitutionCipher(const std::string &);
+        SubstitutionCipher(const std::string &, const std::string &);
+        std::string encode(const std::string &);
+        std::string decode(const std::string &);
+
+    protected:
+        const std::string alphabet;
+        const std::string alpha_code;
+    };
+
+    SubstitutionCipher make_simple_caesar_code(const int &);
+    SubstitutionCipher make_simple_caesar_code(const std::string&, const int &);
+
+    SubstitutionCipher make_extended_caesar_code(const std::string&, const int &);
+    SubstitutionCipher make_extended_caesar_code(const std::string&, const std::string&, const int &);
+
+}
 
 #endif
