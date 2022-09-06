@@ -3,7 +3,7 @@
 
 int main(int arc, char** argv){
     const std::string message = "StrengGeheimeZeichen";
-    const int shift = 12;
+    const unsigned int shift = 12;
     const std::string key = "Password";
     Cipher::SubstitutionCipher sc = Cipher::make_simple_caesar_code(shift);
     std::string enc_msg = sc.encode(message);

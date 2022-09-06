@@ -33,19 +33,19 @@ namespace Cipher
     public:
         SubstitutionCipher(const std::string &);
         SubstitutionCipher(const std::string &, const std::string &);
-        std::string encode(const std::string &);
-        std::string decode(const std::string &);
+        std::string encode(const std::string &) const;
+        std::string decode(const std::string &) const;
 
     protected:
         const std::string alphabet;
         const std::string alpha_code;
     };
 
-    SubstitutionCipher make_simple_caesar_code(const int &);
-    SubstitutionCipher make_simple_caesar_code(const std::string&, const int &);
+    SubstitutionCipher make_simple_caesar_code(const unsigned int &);
+    SubstitutionCipher make_simple_caesar_code(const std::string&, const unsigned int &);
 
-    SubstitutionCipher make_extended_caesar_code(const std::string&, const int &);
-    SubstitutionCipher make_extended_caesar_code(const std::string&, const std::string&, const int &);
+    SubstitutionCipher make_extended_caesar_code(const std::string&, const unsigned int &);
+    SubstitutionCipher make_extended_caesar_code(const std::string&, const std::string&, const unsigned int &);
 
 }
 

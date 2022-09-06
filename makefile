@@ -1,12 +1,12 @@
-LINKER = g++
+LINKER := g++
 
-COMPILER = g++ -c
+COMPILER := g++ -c
 
-OBJ = main.o SimpleCaesar.o ExtendedCaesar.o Cipher.o
+OBJ := main.o SimpleCaesar.o ExtendedCaesar.o Cipher.o
 
-EXE = app.exe
+EXE := app.exe
 
-CLEAN = del $(EXE) $(OBJ)
+CLEAN := del $(EXE) $(OBJ)
 
 # Test the code by building and running. 
 # Afterwards, all machine code and the exe 
