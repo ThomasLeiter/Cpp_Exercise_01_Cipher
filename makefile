@@ -1,6 +1,6 @@
-LINKER := g++
+LINKER := g++ -Wall
 
-COMPILER := g++ -c
+COMPILER := g++ -c -Wall
 
 OBJ := main.o SimpleCaesar.o ExtendedCaesar.o Cipher.o
 
